@@ -147,8 +147,10 @@ async function main() {
   ];
 
   const customers = await Promise.all(
-    customersData.map((c) => prisma.customer.create({ data: c }))
-  );
+  customersData.map((c) => prisma.customer.create({
+    data: c,
+  }))
+);
   console.log('  ✓ Created 10 customers (5 per agent)');
 
   // ─── Loans ─────────────────────────────────────────────────────────────────
