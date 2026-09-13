@@ -1,4 +1,3 @@
-// server/src/app.js
 const express = require('express');
 const cors = require('cors');
 
@@ -8,7 +7,10 @@ const app = express();
 
 // ─── Middleware ───────────────────────────────────────────────────────────────
 app.use(cors({
-  origin: 'http://localhost:5173', // Vite dev server
+  origin: [
+    'http://localhost:5173',
+    'https://debt-collection-management-platform.vercel.app',
+  ],
   credentials: true,
 }));
 app.use(express.json());
