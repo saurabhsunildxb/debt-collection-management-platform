@@ -168,7 +168,7 @@ export default function Dashboard() {
           icon={<IcoUsers />}
         />
         <StatCard
-          label="Active Loans"
+          label="Total Loans"
           value={stats.summary.totalLoans}
           hint={`${stats.loans.overdue} overdue · ${stats.loans.closed} closed`}
           icon={<IcoDoc />}

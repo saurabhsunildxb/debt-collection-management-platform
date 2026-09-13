@@ -383,24 +383,37 @@ function makeAddress(city, state) {
 async function main() {
   console.log('🌱 Starting improved seed...\n');
 
-  // ── Safety check: refuse to run against Neon / production ─────────────────
+  // ── Safety check: refuse to run against Neon / production unless explicitly allowed ─
   const dbUrl = process.env.DATABASE_URL || '';
-  if (
+  const isNeon =
     dbUrl.includes('neon.tech') ||
     dbUrl.includes('neon.database') ||
     dbUrl.includes('neon.db') ||
-    dbUrl.includes('aws.neon')
-  ) {
-    console.error('');
-    console.error('❌  SAFETY ABORT');
-    console.error('   DATABASE_URL appears to point to a Neon (production) database.');
-    console.error('   Update server/.env to your LOCAL PostgreSQL connection string,');
-    console.error('   then re-run the seed.');
-    console.error('');
-    process.exit(1);
-  }
+    dbUrl.includes('aws.neon');
+  const allowProd = process.env.SEED_ALLOW_PRODUCTION === 'true';
 
-  console.log('  ✓ DATABASE_URL looks local — proceeding safely.');
+  if (isNeon) {
+    if (!allowProd) {
+      console.error('');
+      console.error('❌  SAFETY ABORT');
+      console.error('   DATABASE_URL appears to point to a Neon (production) database.');
+      console.error('   To run against production, you must explicitly set SEED_ALLOW_PRODUCTION=true');
+      console.error('   Otherwise, update server/.env to your LOCAL PostgreSQL connection string.');
+      console.error('');
+      process.exit(1);
+    }
+    console.log('  ⚠️  WARNING: Seeding PRODUCTION Neon database due to SEED_ALLOW_PRODUCTION=true');
+  } else {
+    if (allowProd) {
+      console.error('');
+      console.error('❌  SAFETY ABORT');
+      console.error('   SEED_ALLOW_PRODUCTION=true is set, but DATABASE_URL does not appear to be Neon.');
+      console.error('   Please check your configuration to avoid clearing the wrong database.');
+      console.error('');
+      process.exit(1);
+    }
+    console.log('  ✓ DATABASE_URL looks local — proceeding safely.');
+  }
 
   // ── Cleanup (FK order: activities → repayments → loans → customers → users) ─
   await prisma.collectionActivity.deleteMany();

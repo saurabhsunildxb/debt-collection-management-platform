@@ -11,6 +11,8 @@ import Loans from './pages/Loans';
 import Login from './pages/Login';
 import Repayments from './pages/Repayments';
 
+import UserManagement from './pages/UserManagement';
+
 export default function App() {
   return (
     <AuthProvider>
@@ -26,6 +28,7 @@ export default function App() {
               <Route path="/loans/:id" element={<LoanDetail />} />
               <Route path="/repayments" element={<Repayments />} />
               <Route path="/activities" element={<Activities />} />
+              <Route path="/users" element={<UserManagement />} />
             </Route>
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
