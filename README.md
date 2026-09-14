@@ -6,11 +6,11 @@ Built with React, Node.js, Express, PostgreSQL, Prisma, and JWT authentication.
 
 ## 🚀 Live Demo
 
-**Live Application:** [Vercel Deployment](YOUR_VERCEL_URL)
+**Live Application:** [Vercel Deployment](https://debt-collection-management-platform.vercel.app)
 
-**Backend API:** [Render Deployment](YOUR_RENDER_URL)
+**Backend API:** [Render Deployment](https://debt-collection-management-platform.onrender.com/)
 
-**Source Code:** [GitHub Repository](YOUR_GITHUB_URL)
+**Source Code:** [GitHub Repository](https://github.com/saurabhsunildxb/debt-collection-management-platform)
 
 ### Demo Accounts
 
